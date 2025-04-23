@@ -1,8 +1,8 @@
 @import "tailwindcss";
 @tailwind base;
 @tailwind components;
-@tailwind utilities; 
-
+@tailwind utilities;
+@tailwind theme;
 
 
 * {
@@ -49,10 +49,41 @@
 @theme {
   --color-bank-gradient: #0179FE;
   --color-bg-sky-1: #F3F9FF;
+
+  --color-black-1: #00214F;
+  --color-black-2: #344054;
+
+  --color-gray-25: #FCFCFD;
+
+  --color-blue-25: #F5FAFF;
+
+  --font-ibm-plex-serif:var(--font-ibm-plex-serif);
+
+  --shadow-chart: 0px 1px 3px 0px rgba(16, 24, 40, 0.10), 0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+  --shadow-form: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  --shadow-profile: 0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+  --shadow-creditCard: 8px 10px 16px 0px rgba(0, 0, 0, 0.05);
+
+  --backgroundImage-gradient-mesh: url('/icons/gradient-mesh.svg');
 }
+/* @theme {
+
+boxShadow: {
+    form: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)";
+    chart:
+      "0px 1px 3px 0px rgba(16, 24, 40, 0.10), 0px 1px 2px 0px rgba(16, 24, 40, 0.06)";
+    profile:
+      "0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03)";
+    creditCard: "8px 10px 16px 0px rgba(0, 0, 0, 0.05)";
+  }
+} */
 
 @utility bg-bank-gradient{ 
   background: #0179FE;
+}
+
+@utility bg-gradient-mesh{
+  background: url('/icons/gradient-mesh.svg');
 }
 
 border-bankGradient
@@ -109,7 +140,7 @@ border-bankGradient
   @apply text-14 px-4 py-2.5 font-semibold;
 }
 
-.flex-center {
+@utility flex-center {
   @apply flex items-center justify-center;
 }
 
@@ -133,9 +164,9 @@ border-bankGradient
     @apply flex flex-col justify-between gap-8;
   }
 
-  /*.total-balance {
-    @apply flex w-full items-center gap-4 rounded-xl border border-gray-200 p-4 shadow-chart sm:gap-6 sm:p-6;
-  }*/
+  .total-balance {
+    @apply flex w-full items-center gap-4 rounded-xl border border-gray-200 p-4  sm:gap-6 sm:p-6 shadow-chart;
+  }
 
   .total-balance-chart {
     @apply flex size-full max-w-[100px] items-center sm:max-w-[120px];
@@ -172,24 +203,26 @@ border-bankGradient
 
   /* Right sidebar */
 
-  /*
+  
   .right-sidebar {
-    @apply no-scrollbar hidden h-screen max-h-screen flex-col border-l border-gray-200 xl:flex w-[355px] xl:overflow-y-scroll !important;
+    @apply no-scrollbar hidden h-screen max-h-screen flex-col border-l border-gray-200 xl:flex w-[355px] xl:overflow-y-scroll ;
   }
 
+  /* !important */
+
   .profile-banner {
-    @apply h-[120px] w-full bg-gradient-mesh bg-cover bg-no-repeat;
-  }*/
+    @apply h-[120px] w-full bg-[url('/icons/gradient-mesh.svg')] bg-cover bg-no-repeat;
+  }
+
+  /* bg-gradient-mesh */
 
   .profile {
     @apply relative flex px-6 max-xl:justify-center;
   }
 
-  .profile-img {
-    @apply  absolute -top-8 size-24 rounded-full bg-gray-100 border-8 border-white p-2 ;
+  @utility profile-img {
+    @apply  absolute -top-8 size-24 rounded-full bg-gray-100 border-8 border-white p-2 shadow-profile flex-center ;
   }
-
-  /*flex-center shadow-profile*/
 
   .profile-details {
     @apply flex flex-col pt-24;
@@ -212,19 +245,15 @@ border-bankGradient
 
   
   .my-banks {
-    @apply flex h-screen max-h-screen w-full flex-col gap-8 bg-gray-200 p-8 xl:py-12;
+    @apply flex h-screen max-h-screen w-full flex-col gap-8 bg-gray-200 p-8 xl:py-12 bg-gray-25;
   }
-
-  /*bg-gray-25*/
 
   /* My Banks */
 
-  
   .transactions {
-    @apply flex max-h-screen w-full flex-col gap-8 overflow-y-scroll bg-gray-200 p-8 xl:py-12;
+    @apply flex max-h-screen w-full flex-col gap-8 overflow-y-scroll bg-gray-200 p-8 xl:py-12 bg-gray-25;
   }
 
-   /*bg-gray-25*/
 
   .transactions-header {
     @apply flex w-full flex-col items-start justify-between gap-8 md:flex-row;
@@ -235,16 +264,14 @@ border-bankGradient
   }
 
   .transactions-account-balance {
-    @apply  flex-col  gap-2 rounded-md  px-4 py-2 text-white;
+    @apply  flex-col  gap-2 rounded-md  px-4 py-2 text-white flex-center bg-blue-25/20 flex-center;
   }
-
-  /*flex-center bg-blue-25/20*/
 
   .header-box {
     @apply flex flex-col gap-1;
   }
 
-  .header-box-title {
+  @utility header-box-title {
     @apply text-24 lg:text-30 font-semibold text-gray-900;
   }
 
@@ -255,10 +282,8 @@ border-bankGradient
   /* Bank Card */
 
   .bank-card {
-    @apply relative flex h-[190px] w-full max-w-[320px] justify-between rounded-[20px] border border-white bg-bank-gradient backdrop-blur-[6px];
+    @apply relative flex h-[190px] w-full max-w-[320px] justify-between rounded-[20px] border border-white bg-bank-gradient backdrop-blur-[6px] shadow-creditCard ;
   }
-
-  /*shadow-creditCard*/
 
   .bank-card_content {
     @apply relative z-10 flex size-full max-w-[228px] flex-col justify-between rounded-l-[20px] bg-gray-700 bg-bank-gradient px-5 pb-4 pt-5;
@@ -272,18 +297,14 @@ border-bankGradient
 
   
   .bank-info {
-    @apply gap-[18px] flex p-4 transition-all border  border-transparent;
+    @apply gap-[18px] flex p-4 transition-all border  border-transparent bg-blue-25;
   }
-
-  /*bg-blue-25*/
 
   /* Category Badge */
 
   .category-badge {
-    @apply truncate w-fit gap-1 rounded-2xl border-[1.5px] py-[2px] pl-1.5 pr-2;
+    @apply truncate w-fit gap-1 rounded-2xl border-[1.5px] py-[2px] pl-1.5 pr-2 flex-center;
   }
-
-  /*flex-center*/
 
   .banktab-item {
     @apply gap-[18px] border-b-2 flex px-2 sm:px-4 py-2 transition-all;
@@ -302,10 +323,8 @@ border-bankGradient
   /* PlaidLink */
 
   .plaidlink-primary {
-    @apply text-16 rounded-lg border border-bank-gradient bg-bank-gradient font-semibold text-white;
+    @apply text-16 rounded-lg border border-bank-gradient bg-bank-gradient font-semibold text-white shadow-form;
   }
-
-  /*shadow-form*/
 
   .plaidlink-ghost {
     @apply flex cursor-pointer items-center justify-center gap-3 rounded-lg px-3 py-7 hover:bg-white lg:justify-start;
@@ -340,10 +359,8 @@ border-bankGradient
   }
 
   .form-btn {
-    @apply text-16 rounded-lg border border-bank-gradient bg-bank-gradient font-semibold text-white;
+    @apply text-16 rounded-lg border border-bank-gradient bg-bank-gradient font-semibold text-white shadow-form;
   }
-
-  /*shadow-form*/
 
   .form-link {
     @apply text-14 cursor-pointer font-medium text-bank-gradient;
@@ -353,10 +370,8 @@ border-bankGradient
 
   
   .payment-transfer {
-    @apply no-scrollbar flex flex-col overflow-y-scroll p-8 md:max-h-screen xl:py-12;
+    @apply no-scrollbar flex flex-col overflow-y-scroll p-8 md:max-h-screen xl:py-12 bg-gray-25;
   }
-
-  /*bg-gray-25 */
 
   .payment-transfer_form-item {
     @apply flex w-full max-w-[850px] flex-col gap-3 md:flex-row lg:gap-8;
@@ -375,22 +390,18 @@ border-bankGradient
   }
 
   .payment-transfer_btn {
-    @apply text-14 w-full bg-bank-gradient font-semibold text-white ;
+    @apply text-14 w-full bg-bank-gradient font-semibold text-white shadow-form;
   }
 
-  /*shadow-form !important*/
+  /*!important*/
   
   /* Root Layout */
 
-  
   .root-layout {
-    @apply flex h-16 items-center justify-between p-5 sm:p-8 md:hidden;
+    @apply flex h-16 items-center justify-between p-5 sm:p-8 md:hidden shadow-creditCard;
   }
 
-  /*shadow-creditCard*/
-
   /* Bank Info */
-
 
   .bank-info_content {
     @apply flex flex-1 items-center justify-between gap-2 overflow-hidden;
@@ -433,19 +444,16 @@ border-bankGradient
   }
 
   .sidebar-logo {
-    @apply 2xl:text-26  text-[26px] font-bold  max-xl:hidden;
+    @apply 2xl:text-26  text-[26px] font-bold font-ibm-plex-serif text-black-1  max-xl:hidden;
   }
-
-  /* font-ibm-plex-serif text-black-1*/
 
   .sidebar-link {
     @apply flex gap-3 items-center py-1 md:p-3 2xl:p-4 rounded-lg justify-center xl:justify-start;
   }
 
   .sidebar-label {
-    @apply text-16 font-semibold  max-xl:hidden;
+    @apply text-16 font-semibold text-black-2  max-xl:hidden;
   }
 
-  /*text-black-2*/
     
 /*} */
